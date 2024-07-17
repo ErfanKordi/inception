@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - Users/ekordi/Desktop/Projects/inception42/wordpress:/var/www/html
+    networks:
+      - webnet
+    depends_on:
+      - wordpress
+      - mariadb
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wp-php
+    volumes:
+      - Users/ekordi/Desktop/Projects/inception42/wordpress:/var/www/html
+    networks:
+      - webnet
+    depends_on:
+      - mariadb
+    environment:
+      MDB_USER: ${MDB_USER}
+      MDB_PASS: ${MDB_PASS}
+      MDB_HOST: ${MDB_HOST}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      WP_TITLE: ${WP_TITLE}
+      WP_SU_USR: ${WP_SU_USR}
+      WP_SU_PWD: ${WP_SU_PWD}
+      WP_SU_EMAIL: ${WP_SU_EMAIL}
+      MDB_NAME: ${MDB_NAME}
+
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    volumes:
+      - Users/ekordi/Desktop/Projects/inception42/mariadb:/var/lib/mysql
+    networks:
+      - webnet
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MDB_USER: ${MDB_USER}
+      MDB_PASS: ${MDB_PASS}
+      MDB_NAME: ${MDB_NAME}
+
+
+networks:
+  webnet:
