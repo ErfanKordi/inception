@@ -49,6 +49,9 @@ services:
       WP_SU_PWD: ${WP_SU_PWD}
       WP_SU_EMAIL: ${WP_SU_EMAIL}
       MDB_NAME: ${MDB_NAME}
+      WP_USER: ${WP_USER}
+      WP_USER_EMAIL: ${WP_USER_EMAIL}
+      WP_USER_PASSWORD: ${WP_USER_PASSWORD}
 
   mariadb:
     build: ./requirements/mariadb
