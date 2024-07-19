@@ -27,18 +27,18 @@ chmod 777 wp-config.php
 wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=author --allow-root
 wp option update home $DOMAIN_NAME --allow-root
 wp option update siteurl  $DOMAIN_NAME --allow-root
-chown -R www-data:www-data /var/www/html/wp-content/uploads
-chmod -R 755 /var/www/html/wp-content/uploads
-WP_PATH="/var/www/html"
+# chown -R www-data:www-data /var/www/html/wp-content/uploads
+# chmod -R 755 /var/www/html/wp-content/uploads
+# WP_PATH="/var/www/html"
 
-# Change ownership to www-data (adjust if necessary for your web server user)
-sudo chown -R www-data:www-data $WP_PATH/wp-content/uploads
+# # Change ownership to www-data (adjust if necessary for your web server user)
+# sudo chown -R www-data:www-data $WP_PATH/wp-content/uploads
 
-# Set directory permissions to 755
-sudo find $WP_PATH/wp-content/uploads -type d -exec chmod 755 {} \;
+# # Set directory permissions to 755
+# sudo find $WP_PATH/wp-content/uploads -type d -exec chmod 755 {} \;
 
-# Set file permissions to 644
-sudo find $WP_PATH/wp-content/uploads -type f -exec chmod 644 {} \;
+# # Set file permissions to 644
+# sudo find $WP_PATH/wp-content/uploads -type f -exec chmod 644 {} \;
 
 # Start PHP-FPM
 php-fpm8.2 -F
