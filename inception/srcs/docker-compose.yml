@@ -32,7 +32,7 @@ services:
 
   wordpress:
     build: ./requirements/wordpress
-    container_name: wp-php
+    container_name: wordpress
     volumes:
       - /home/ekordi/data/wordpress:/var/www/html
     networks:
