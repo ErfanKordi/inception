@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # Wait for MariaDB to be ready
 sleep 20
@@ -25,6 +24,7 @@ chmod 777 wp-config.php
 # Install WordPress with environment variables
 ./wp-cli.phar core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_SU_USR --admin_password=$WP_SU_PWD --admin_email=$WP_SU_EMAIL --allow-root
 
+wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=author --allow-root
 wp option update home $DOMAIN_NAME --allow-root
 wp option update siteurl  $DOMAIN_NAME --allow-root
 chown -R www-data:www-data /var/www/html/wp-content/uploads
@@ -42,21 +42,3 @@ sudo find $WP_PATH/wp-content/uploads -type f -exec chmod 644 {} \;
 
 # Start PHP-FPM
 php-fpm8.2 -F
-
-# Function to wait for MariaDB to be ready
-# wait_for_db() {
-#     until mysql -h mariadb -u wpuser -ppassword -e "show databases;" > /dev/null 2>&1; do
-#         echo "Waiting for mariadb to be ready..."
-#         sleep 3
-#     done
-# }
-# sleep 10
-# cd /var/www/html
-# curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-# chmod +x wp-cli.phar
-# ./wp-cli.phar core download --allow-root
-# ./wp-cli.phar config create --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb --allow-root
-# chmod 777 wp-config.php
-# ./wp-cli.phar core install --url=localhost --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root
-
-# php-fpm8.2 -F
