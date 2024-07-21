@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bullseye
 
 # Install Nginx and OpenSSL
 RUN apt-get update \
